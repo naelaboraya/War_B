@@ -12,9 +12,9 @@ enum SUIT {//card suits
 };
 
 enum NUMBER {//card numbers [A-K]
-    Ace,//The lowest
     Two,Three,Four,Five,Six,Seven,Eight,Nine,Ten,
     Jack,Queen,King//The heighest
+    , Ace
 };
 
 class Card{
@@ -29,11 +29,17 @@ class Card{
     //constructor:
     Card(NUMBER c_number , SUIT c_suit);
 
-    SUIT getCardSuit();
 
+
+    SUIT getCardSuit();    
     NUMBER getCardNumber();
-
+    int compare_card(Card other);
     std::string toString();
+
+
+    friend bool operator>(const Card& c1, const Card& c2);
+    friend bool operator<(const Card& c1, const Card& c2);
+    friend bool operator==(const Card& c1, const Card& c2);
 };
 
 

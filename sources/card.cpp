@@ -13,6 +13,36 @@ SUIT Card::getCardSuit(){
     return this->card_suit;
 }
 
+bool operator>(const Card& c1, const Card& c2) {
+    return static_cast<int>(c1.card_number) > static_cast<int>(c2.card_number);
+}
+
+bool operator<(const Card& c1, const Card& c2) {
+    return static_cast<int>(c1.card_number) < static_cast<int>(c2.card_number);
+}
+
+ bool operator==(const Card& c1, const Card& c2) {
+    return static_cast<int>(c1.card_number) == static_cast<int>(c2.card_number);
+}
+
+int Card::compare_card(Card other){//returns 0 if equal , 1 if c1 is greater , 2 if c2 is greater
+    if (this->card_number == Ace && other.card_number == Two){
+        return 2;
+    }
+    else if (this->card_number == Two && other.card_number == Ace){
+        return 1;
+    }
+    else if (this->card_number > other.card_number){
+        return 1;
+    }
+    else if (this->card_number < other.card_number){
+        return 2;
+    }
+    else {
+        return 0;
+    }
+}
+
 std::string Card::toString(){
 
     std::string suit_to_string;
