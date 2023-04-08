@@ -18,6 +18,7 @@ std::vector<Card> Deck;//all the 52 cards that will be divided to 2 players
 std::vector<Card> table;//holds the temporary cards in case of war
 std::string print_single_turn;
 std::string print_all_turns;
+int game_over;
 std::string winner;
 //bool is_finished;
 
@@ -44,6 +45,27 @@ Player getplayer1(){
 
 Player getplayer2(){
     return this->player2;
+}
+
+std::string getWinner(){
+    return this->winner;
+}
+
+void setWinner(){
+    if(!this->is_finished()){
+        this->winner = "there is no winner yet!";
+    }
+    if(this->player1.cardesTaken() > this->player2.cardesTaken()){
+        this->winner = "the winner is : " + this->player1.getName();
+        std::cout << this->winner << endl;
+    }
+    else if (this->player2.cardesTaken() > this->player1.cardesTaken()){
+        this->winner = "the winner is : " + this->player2.getName();
+        std::cout << this->winner << endl;
+    }
+    else {
+        throw logic_error("The game ended with draw");
+    }
 }
 
 //functions:

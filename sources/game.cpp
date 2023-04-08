@@ -12,6 +12,7 @@ Game::Game(Player p1 , Player p2):player1(p1),player2(p2){
     this->print_single_turn = "";
     this->print_all_turns = "";
     this->winner = "";
+    this->game_over = 0;
     this->init_game();
 }
 
@@ -117,15 +118,16 @@ void Game::war(Card c1 , Card c2){
 
 void Game::playTurn(){
 
+    if(this->game_over == 1){
+        throw std::logic_error("Game Over");
+    }
+
     if (this->player1.getName() == this->player2.getName()) {//same players -> throw exception
     throw std::logic_error("The same player!!!");
     }
 
-    if (this->is_finished()){
-        throw std::logic_error("Game Over");
-    }
     
-    //if(this->player1.stacksize() > 0 && this->player2.stacksize() >0){
+    if(this->player1.stacksize() > 0 && this->player2.stacksize() >0){
     Card c1 = this->player1.Takefirstcard();
     Card c2 = this->player2.Takefirstcard();
     this->print_single_turn =this->player1.getName()+" played "+c1.toString()+" "+this->player2.getName()+" played "+c2.toString();
@@ -153,7 +155,7 @@ void Game::playTurn(){
         war(c1,c2);
         //playTurn();
     }
-   // }
+    }
 
     
 }
@@ -166,6 +168,7 @@ void Game::playAll(){
     while(!this->is_finished()){
         this->playTurn();
     }
+    this->game_over = 1;
 }
 
 void Game::printWiner(){
@@ -194,7 +197,7 @@ void Game::printStats(){
 }
 
 bool Game::is_finished(){
-    if (this->player1.stacksize()== 0 && this->player2.stacksize() == 0){
+    if ((this->player1.stacksize()== 0 && this->player2.stacksize() == 0) || (this->game_over == 1)){
         return true;
     }
     return false;

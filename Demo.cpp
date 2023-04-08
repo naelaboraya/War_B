@@ -73,7 +73,25 @@ int main() {
   // cout << "\n" << endl;
   // cout << p4.playertoSting() << endl;
   
-  
+    Player p6("a");
+    Player p7("b");
+    Game ggg(p6, p7);
+    int maxTurns = 26;
+    
+    // for (int i = 0 ; i <= 26 ; i++ && p1.stacksize()>=0)
+    // {
+    //     game.playTurn();
+    // }
+    Player p8("Alice");
+    Player p9("Bob");
+    Game ggame(p1, p2);
+    ggame.playAll();
+    cout << p8.stacksize() << endl;
+    cout << p9.stacksize() << endl;
+    ggame.playTurn();
+    ggame.playTurn();
+    ggame.printLastTurn();
+}
 
   
-}
+
