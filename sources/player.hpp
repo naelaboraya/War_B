@@ -12,7 +12,9 @@ using namespace std;
 
 class Player{
     private: 
-
+    
+    int id;
+    static int next_id;
     std::string name;
     int num_of_cards_taken;
     std::vector<Card> *stack;//the cards stack that the player has 
@@ -31,6 +33,11 @@ class Player{
     
     
     //functions:
+
+    int getID(){
+        return this->id;
+    }
+
     std::string getName(){
         return this->name;
     }

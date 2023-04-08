@@ -10,6 +10,8 @@ Game::Game(Player p1 , Player p2):player1(p1),player2(p2){
     //  this->player1 = p1;
     //  this->player2 = p2;
     this->print_single_turn = "";
+    this->print_all_turns = "";
+    this->winner = "";
     this->init_game();
 }
 
@@ -54,13 +56,14 @@ void Game::addTotable(Card c){
 
 void Game::war(Card c1 , Card c2){
 
-    cout << "war!!" << endl;
-
+    //cout << "war!!" << endl;
+    if (this->player1.stacksize()>=2 && this->player1.stacksize()>=2){
     Card c1_down = this->player1.Takefirstcard();
     Card c2_down = this->player2.Takefirstcard();
     Card c1_up = this->player1.Takefirstcard();
     Card c2_up = this->player2.Takefirstcard();
-
+    this->print_single_turn =this->player1.getName()+" played "+c1_up.toString()+" "+this->player2.getName()+" played "+c2_up.toString();
+    
     
     
 
@@ -72,6 +75,8 @@ void Game::war(Card c1 , Card c2){
         this->player1.add_card_to_cards_taken(c2_down);
         this->player1.add_card_to_cards_taken(c1_up);
         this->player1.add_card_to_cards_taken(c2_up);
+        this->print_single_turn += ". "+ this->player1.getName() + " wins.";
+        this->print_all_turns += print_single_turn +"\n";
         
     }
       else if (c1_up.compare_card(c2_up) == 2) {
@@ -82,6 +87,8 @@ void Game::war(Card c1 , Card c2){
         this->player2.add_card_to_cards_taken(c1_down);
         this->player2.add_card_to_cards_taken(c2_up);
         this->player2.add_card_to_cards_taken(c1_up);
+        this->print_single_turn += ". "+ this->player2.getName() + " wins.";
+        this->print_all_turns += print_single_turn +"\n";
         
     }   
     else {
@@ -90,18 +97,35 @@ void Game::war(Card c1 , Card c2){
         this->addTotable(c1_up);
         this->addTotable(c2_down);
         this->addTotable(c2_up);
+        this->print_single_turn += ". Draw.";
+        this->print_all_turns += print_single_turn +"\n";
         war(c1_up, c2_up);
         
     }
+ }
+    else if (this->player1.stacksize()<2 && this->player1.stacksize()<2){
+         if(this->player1 . stacksize() == 1 && this->player2.stacksize() == 1){
+            this->player1.add_card_to_cards_taken (this->player1.getStack()->front());
+            this->player2.add_card_to_cards_taken (this->player2.getStack()->front());
+         }
+         else if (this->player1 . stacksize() == 0 && this->player2.stacksize() == 0)   
+         return;
+     }
+     
 }
 
 
 void Game::playTurn(){
 
+    if (this->player1.getName() == this->player2.getName()) {//same players -> throw exception
+    throw std::logic_error("The same player!!!");
+    }
+
     if (this->is_finished()){
         throw std::logic_error("Game Over");
     }
     
+    //if(this->player1.stacksize() > 0 && this->player2.stacksize() >0){
     Card c1 = this->player1.Takefirstcard();
     Card c2 = this->player2.Takefirstcard();
     this->print_single_turn =this->player1.getName()+" played "+c1.toString()+" "+this->player2.getName()+" played "+c2.toString();
@@ -112,38 +136,57 @@ void Game::playTurn(){
         this->player1.add_card_to_cards_taken(c1);
         this->player1.add_card_to_cards_taken(c2);
         this->print_single_turn += ". "+ this->player1.getName() + " wins.";
-        cout << print_single_turn << endl; 
+        this->print_all_turns += print_single_turn +"\n";
+        //cout << print_single_turn << endl; 
     }
     else if(cmp_cards == 2){
         this->player2.add_card_to_cards_taken(c2);
         this->player2.add_card_to_cards_taken(c1);
         this->print_single_turn += ". "+ this->player2.getName() + " wins";
-        cout << print_single_turn << endl; 
+        this->print_all_turns += this->print_single_turn +"\n";
+        //cout << print_single_turn << endl; 
     }
     else { // cmp_cards == 0 (2 cards are equal) -> War!!
         // std::cout << "war!!" << endl;
-
+        this->print_single_turn += ". Draw.";
+        this->print_all_turns += print_single_turn +"\n";
         war(c1,c2);
         //playTurn();
     }
+   // }
 
     
 }
 
 void Game::printLastTurn(){
-
+    std::cout << this->print_single_turn << endl; 
 }
 
 void Game::playAll(){
-
+    while(!this->is_finished()){
+        this->playTurn();
+    }
 }
 
 void Game::printWiner(){
-
+    if(!this->is_finished()){
+        this->winner = "there is no winner yet!";
+    }
+    if(this->player1.cardesTaken() > this->player2.cardesTaken()){
+        this->winner = "the winner is : " + this->player1.getName();
+        std::cout << this->winner << endl;
+    }
+    else if (this->player2.cardesTaken() > this->player1.cardesTaken()){
+        this->winner = "the winner is : " + this->player2.getName();
+        std::cout << this->winner << endl;
+    }
+    else {
+        throw logic_error("The game ended with draw");
+    }
 }
 
 void Game::printLog(){
-
+    std::cout << this->print_all_turns << endl; 
 }
 
 void Game::printStats(){

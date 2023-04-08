@@ -1,15 +1,21 @@
 #include "player.hpp"
 
 
+int Player::next_id = 0;
+
 //constructors :
 
 Player::Player(const Player& other) {
+    this->id = next_id;
+	next_id++;
     name = other.name;
     stack = other.stack;
     stack_of_cards_taken = other.stack_of_cards_taken;
 }
 
 Player::Player(std::string player_name){
+   this->id = next_id;
+   next_id++;
    this->name = player_name; 
    this->num_of_cards_taken = 0;
    this->stack = new vector<Card>();
@@ -50,6 +56,8 @@ Card Player::Takefirstcard(){
 std::string Player::playertoSting(){
     std::string info = "";
     info += "name : " + this->name;
+    info += "\n";
+    info += "id : " + std::to_string(this->id);
     info += "\n";
     info += "stack size = " + std::to_string(this->stacksize());
     info += "\n";

@@ -17,6 +17,8 @@ Player player1,player2;//the game's players
 std::vector<Card> Deck;//all the 52 cards that will be divided to 2 players
 std::vector<Card> table;//holds the temporary cards in case of war
 std::string print_single_turn;
+std::string print_all_turns;
+std::string winner;
 //bool is_finished;
 
 
@@ -36,7 +38,13 @@ Game(Player p1, Player p2);
 //destructor:
 ~Game();
 
+Player getplayer1(){
+    return this->player1;
+}
 
+Player getplayer2(){
+    return this->player2;
+}
 
 //functions:
 void playTurn();
