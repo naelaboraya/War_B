@@ -6,19 +6,28 @@
 
 
 //constructor: 
-Game::Game(Player p1 , Player p2):player1(p1),player2(p2){
-    //  this->player1 = p1;
-    //  this->player2 = p2;
-    this->print_single_turn = "";
-    this->print_all_turns = "";
-    this->winner = "";
-    this->game_over = 0;
-    this->init_game();
+// Game::Game(Player p1 , Player p2):player1(p1),player2(p2){
+//     //  this->player1 = p1;
+//     //  this->player2 = p2;
+//     this->print_single_turn = "";
+//     this->print_all_turns = "";
+//     this->winner = "";
+//     this->game_over = 0;
+//     this->init_game();
+// }
+Game::Game(Player p1, Player p2)
+    : player1(std::move(p1)), player2(std::move(p2)),
+      print_single_turn(""), print_all_turns(""), winner(""), game_over(0)
+{
+    init_game();
 }
 
 
+
 //destructor:
-Game::~Game(){}
+// Game::~Game(){
+
+// }
 
 
 //functions:

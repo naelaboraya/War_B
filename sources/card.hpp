@@ -37,9 +37,9 @@ class Card{
     std::string toString();
 
 
-    friend bool operator>(const Card& c1, const Card& c2);
-    friend bool operator<(const Card& c1, const Card& c2);
-    friend bool operator==(const Card& c1, const Card& c2);
+    friend bool operator>(const Card& crd1, const Card& crd2);
+    friend bool operator<(const Card& crd1, const Card& crd2);
+    friend bool operator==(const Card& crd1, const Card& crd2);
 };
 
 

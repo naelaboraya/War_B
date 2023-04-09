@@ -1,6 +1,8 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
+#include "card.hpp"
+#include "player.hpp"
 
 
 namespace ariel {
@@ -33,11 +35,11 @@ bool is_finished();//true iff the game is over
 
 public:
 //constructor:
-Game(Player p1, Player p2);
+Game(Player pl1, Player pl2);
 
 
 //destructor:
-~Game();
+//~Game();
 
 Player getplayer1(){
     return this->player1;
@@ -80,8 +82,8 @@ void init_game();
 
 std::string game_toString();
 
-void addTotable(Card c);//adds to the table the face up/down cards in case of war
-void war(Card c1 , Card c2);
+void addTotable(Card crd);//adds to the table the face up/down cards in case of war
+void war(Card crd1 , Card crd2);
 //void reset();
 
 };

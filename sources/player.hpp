@@ -13,8 +13,7 @@ using namespace std;
 class Player{
     private: 
     
-    int id;
-    static int next_id;
+    
     std::string name;
     int num_of_cards_taken;
     std::vector<Card> *stack;//the cards stack that the player has 
@@ -24,19 +23,18 @@ class Player{
 
     //constructors:
 
-    Player(const Player& other);
+    //Player(const Player& other);
     Player(std::string player_name);
 
     //destructor:
-     ~Player();
-
+     //~Player();
+     
     
+
     
     //functions:
 
-    int getID(){
-        return this->id;
-    }
+    
 
     std::string getName(){
         return this->name;
@@ -50,8 +48,8 @@ class Player{
         return this->stack_of_cards_taken;
     }   
     
-    void add_card_to_stack(Card c);
-    void add_card_to_cards_taken(Card c);
+    void add_card_to_stack(Card crd);
+    void add_card_to_cards_taken(Card crd);
     int stacksize();
     int cardesTaken();
     Card Takefirstcard();

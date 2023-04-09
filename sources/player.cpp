@@ -1,21 +1,18 @@
 #include "player.hpp"
 
 
-int Player::next_id = 0;
+
 
 //constructors :
 
-Player::Player(const Player& other) {
-    this->id = next_id;
-	next_id++;
-    name = other.name;
-    stack = other.stack;
-    stack_of_cards_taken = other.stack_of_cards_taken;
-}
+// Player::Player(const Player& other) {
+//     name = other.name;
+//     stack = other.stack;
+//     stack_of_cards_taken = other.stack_of_cards_taken;
+// }
+
 
 Player::Player(std::string player_name){
-   this->id = next_id;
-   next_id++;
    this->name = player_name; 
    this->num_of_cards_taken = 0;
    this->stack = new vector<Card>();
@@ -23,18 +20,22 @@ Player::Player(std::string player_name){
 }
 
 //destructor : 
-Player::~Player() {}
+//  Player::~Player() {
+    
+//  }
+
+
 
 
 
 //functions :
 
-void Player::add_card_to_stack(Card c){
-    this->stack->push_back(c);
+void Player::add_card_to_stack(Card crd){
+    this->stack->push_back(crd);
 }
 
-void Player::add_card_to_cards_taken(Card c){
-    this->stack_of_cards_taken->push_back(c);
+void Player::add_card_to_cards_taken(Card crd){
+    this->stack_of_cards_taken->push_back(crd);
 }
 
 int Player::stacksize(){
@@ -56,8 +57,6 @@ Card Player::Takefirstcard(){
 std::string Player::playertoSting(){
     std::string info = "";
     info += "name : " + this->name;
-    info += "\n";
-    info += "id : " + std::to_string(this->id);
     info += "\n";
     info += "stack size = " + std::to_string(this->stacksize());
     info += "\n";
