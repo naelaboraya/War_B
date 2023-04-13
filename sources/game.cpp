@@ -29,8 +29,8 @@ void Game::init_game(){
 
 void Game::shuffle(){
    std::random_device rd;
-    std::mt19937 g(rd());
-    std::shuffle(this->Deck.begin(), this->Deck.end(), g);
+   std::mt19937 g(rd());
+   std::shuffle(this->Deck.begin(), this->Deck.end(), g);
 
    // random_shuffle(this->Deck.begin(), this->Deck.end());
 }
@@ -117,11 +117,12 @@ void Game::playTurn(){
         throw std::logic_error("Game Over");
     }
 
-    if (this->player1.getName() == this->player2.getName()) {//same players -> throw exception
+    
+    if (&this->player1 == &this->player2) {//same players -> throw exception
     throw std::logic_error("The same player!!!");
     }
 
-    
+
     if(this->player1.stacksize() > 0 && this->player2.stacksize() >0){
     Card c1 = this->player1.Takefirstcard();
     Card c2 = this->player2.Takefirstcard();
@@ -157,7 +158,7 @@ void Game::playTurn(){
         this->addTotable(c2);
         war(c1,c2);
         }
-        //playTurn();
+        
     }
 
     this->num_of_turns++;
