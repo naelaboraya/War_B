@@ -72,15 +72,8 @@ void Game::war(Card c1 , Card c2){
 
     if (c1_up.compare_card(c2_up) == 1) {
         // Player 1 wins the war
-        // this->player1.add_card_to_cards_taken(c1);
-        // this->player1.add_card_to_cards_taken(c2);
-        // this->player1.add_card_to_cards_taken(c1_down);
-        // this->player1.add_card_to_cards_taken(c2_down);
-        // this->player1.add_card_to_cards_taken(c1_up);
-        // this->player1.add_card_to_cards_taken(c2_up);
         for (size_t i = 0 ; i < this->table.size() ; i++){
             this->player1.add_card_to_cards_taken(this->table.at(i));
-            cout << "the adding was from table !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
         }
         this->table.clear();
         this->print_single_turn += ". "+ this->player1.getName() + " wins.";
@@ -89,15 +82,8 @@ void Game::war(Card c1 , Card c2){
     }
       else if (c1_up.compare_card(c2_up) == 2) {
         // Player 2 wins the war
-        // this->player2.add_card_to_cards_taken(c2);
-        // this->player2.add_card_to_cards_taken(c1);
-        // this->player2.add_card_to_cards_taken(c2_down);
-        // this->player2.add_card_to_cards_taken(c1_down);
-        // this->player2.add_card_to_cards_taken(c2_up);
-        // this->player2.add_card_to_cards_taken(c1_up);
         for (size_t i = 0 ; i < this->table.size() ; i++){
             this->player2.add_card_to_cards_taken(this->table.at(i));
-            cout << "the adding was from table !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
         }
         this->table.clear();
         this->print_single_turn += ". "+ this->player2.getName() + " wins.";
@@ -106,10 +92,6 @@ void Game::war(Card c1 , Card c2){
     }   
     else {
         // draw
-        // this->addTotable(c1_down);
-        // this->addTotable(c1_up);
-        // this->addTotable(c2_down);
-        // this->addTotable(c2_up);
         this->print_single_turn += ". Draw.";
         this->print_all_turns += print_single_turn +"\n";
         war(c1_up, c2_up);
@@ -118,8 +100,8 @@ void Game::war(Card c1 , Card c2){
  }
     else if (this->player1.stacksize()<2 && this->player1.stacksize()<2){
          if(this->player1 . stacksize() == 1 && this->player2.stacksize() == 1){
-            this->player1.add_card_to_cards_taken (this->player1.getStack().front());//changed to .
-            this->player2.add_card_to_cards_taken (this->player2.getStack().front());//changed to .
+            this->player1.add_card_to_cards_taken (this->player1.getStack().front());
+            this->player2.add_card_to_cards_taken (this->player2.getStack().front());
          }
          else if (this->player1 . stacksize() == 0 && this->player2.stacksize() == 0)   
          return;
@@ -204,7 +186,8 @@ void Game::printWiner(){
         std::cout << this->winner << endl;
     }
     else {
-        throw logic_error("The game ended with draw");
+        //throw logic_error("The game ended with draw");
+        std::cout << "The game ended with draw" << endl;
     }
 }
 
@@ -246,3 +229,4 @@ std::string Game::game_toString(){
     }
     return info;
 }
+

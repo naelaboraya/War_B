@@ -19,7 +19,7 @@ void Player::add_card_to_stack(Card crd){
 }
 
 void Player::add_card_to_cards_taken(Card crd){
-     std::cout << "Adding card " << crd.toString() << " to player " << name << "'s stack\n";
+     //std::cout << "Adding card " << crd.toString() << " to player " << name << "'s stack\n";
     this->stack_of_cards_taken.push_back(crd);
 }
 
@@ -55,3 +55,4 @@ void Player::reset(){
     this->stack_of_cards_taken.clear();
     num_of_cards_taken = 0;
 }
+
