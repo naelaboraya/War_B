@@ -18,6 +18,7 @@ print_single_turn(""), print_all_turns(""), winner(""), game_over(0)
 
 //functions:
 void Game::init_game(){
+    this->num_of_turns=0;
     this->player1.reset();
     this->player2.reset();
     this->deck();
@@ -133,6 +134,7 @@ void Game::playTurn(){
         this->player1.add_card_to_cards_taken(c2);
         this->print_single_turn += ". "+ this->player1.getName() + " wins.";
         this->print_all_turns += print_single_turn +"\n";
+        this->player1.increment_num_of_turns_won();
          
     }
     else if(cmp_cards == 2){//c2 is greater
@@ -140,7 +142,7 @@ void Game::playTurn(){
         this->player2.add_card_to_cards_taken(c1);
         this->print_single_turn += ". "+ this->player2.getName() + " wins";
         this->print_all_turns += this->print_single_turn +"\n";
-        
+        this->player2.increment_num_of_turns_won();
     }
     else { // cmp_cards == 0 (2 cards are equal) -> War!!
         // std::cout << "war!!" << endl;
@@ -157,6 +159,8 @@ void Game::playTurn(){
         }
         //playTurn();
     }
+
+    this->num_of_turns++;
     }
 
     
@@ -196,7 +200,18 @@ void Game::printLog(){
 }
 
 void Game::printStats(){
+    std::cout << "Player 1 stats : " << endl;
+    std::cout << "Name : " + this->player1.getName() << endl;
+    std:: cout << "# of cards won : " + to_string (this->player1.cardesTaken()) << endl;
+    double win_rate_1 = 100.0 * player1.getNum_of_turns_won() / num_of_turns;
+    std::cout << "Win rate: " << win_rate_1 << "%" << endl;
 
+    std::cout << "------------------------------" << endl;
+    std::cout << "Player 2 stats : " << endl;
+    std::cout << "Name : " + this->player2.getName() << endl;
+    std:: cout << "# of cards won : " + to_string (this->player2.cardesTaken()) << endl;
+    double win_rate2 = 100.0 * player2.getNum_of_turns_won() / num_of_turns;
+    std::cout << "Win rate: " << win_rate2 << "%" << endl; 
 }
 
 bool Game::is_finished(){

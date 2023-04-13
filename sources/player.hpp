@@ -18,16 +18,23 @@ class Player{
     int num_of_cards_taken;
     std::vector<Card> stack;//the cards stack that the player has 
     std::vector<Card> stack_of_cards_taken;
+    int num_of_turns_won;
+
 
     public:
 
-    //constructors:
-
-    //Player(const Player& other);
+    int getNum_of_turns_won() const{
+    	return this->num_of_turns_won;
+    }
+    
+    void increment_num_of_turns_won(){
+    	this->num_of_turns_won++;
+    }
+    
+    //constructor:
     Player(std::string player_name);
 
-    //destructor:
-    //  ~Player();
+   
      
     
 

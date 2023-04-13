@@ -8,6 +8,7 @@
 Player::Player(std::string player_name): stack{},stack_of_cards_taken{}{
    this->name = player_name; 
    this->num_of_cards_taken = 0;
+   this->num_of_turns_won = 0;
 }
 
 
@@ -53,6 +54,7 @@ std::string Player::playertoSting(){
 void Player::reset(){
     this->stack.clear();
     this->stack_of_cards_taken.clear();
-    num_of_cards_taken = 0;
+    this->num_of_cards_taken = 0;
+    this->num_of_turns_won =0;
 }
 

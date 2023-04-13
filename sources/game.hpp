@@ -19,6 +19,7 @@ Player& player1;//the game's players
 Player& player2;
 std::vector<Card> Deck;//all the 52 cards that will be divided to 2 players
 std::vector<Card> table;//holds the temporary cards in case of war
+int num_of_turns;
 std::string print_single_turn;
 std::string print_all_turns;
 int game_over;//0 if no 1 if yes 
