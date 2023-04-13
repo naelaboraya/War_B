@@ -5,33 +5,21 @@
 #include <random>
 
 
-//constructor: 
-// Game::Game(Player p1 , Player p2):player1(p1),player2(p2){
-//     //  this->player1 = p1;
-//     //  this->player2 = p2;
-//     this->print_single_turn = "";
-//     this->print_all_turns = "";
-//     this->winner = "";
-//     this->game_over = 0;
-//     this->init_game();
-// }
-Game::Game(Player p1, Player p2)
-    : player1(std::move(p1)), player2(std::move(p2)),
-      print_single_turn(""), print_all_turns(""), winner(""), game_over(0)
+
+//constructor:
+Game::Game(Player& p1, Player& p2): player1(p1), player2(p2),
+print_single_turn(""), print_all_turns(""), winner(""), game_over(0)
 {
     init_game();
 }
 
 
 
-//destructor:
-// Game::~Game(){
-
-// }
-
 
 //functions:
 void Game::init_game(){
+    this->player1.reset();
+    this->player2.reset();
     this->deck();
     this->shuffle();
     this->give_cards();
@@ -74,39 +62,54 @@ void Game::war(Card c1 , Card c2){
     Card c2_up = this->player2.Takefirstcard();
     this->print_single_turn =this->player1.getName()+" played "+c1_up.toString()+" "+this->player2.getName()+" played "+c2_up.toString();
     
+   
+    this->addTotable(c1_down);
+    this->addTotable(c2_down);
+    this->addTotable(c1_up);
+    this->addTotable(c2_up);
     
     
 
     if (c1_up.compare_card(c2_up) == 1) {
         // Player 1 wins the war
-        this->player1.add_card_to_cards_taken(c1);
-        this->player1.add_card_to_cards_taken(c2);
-        this->player1.add_card_to_cards_taken(c1_down);
-        this->player1.add_card_to_cards_taken(c2_down);
-        this->player1.add_card_to_cards_taken(c1_up);
-        this->player1.add_card_to_cards_taken(c2_up);
+        // this->player1.add_card_to_cards_taken(c1);
+        // this->player1.add_card_to_cards_taken(c2);
+        // this->player1.add_card_to_cards_taken(c1_down);
+        // this->player1.add_card_to_cards_taken(c2_down);
+        // this->player1.add_card_to_cards_taken(c1_up);
+        // this->player1.add_card_to_cards_taken(c2_up);
+        for (size_t i = 0 ; i < this->table.size() ; i++){
+            this->player1.add_card_to_cards_taken(this->table.at(i));
+            cout << "the adding was from table !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
+        }
+        this->table.clear();
         this->print_single_turn += ". "+ this->player1.getName() + " wins.";
         this->print_all_turns += print_single_turn +"\n";
         
     }
       else if (c1_up.compare_card(c2_up) == 2) {
         // Player 2 wins the war
-        this->player2.add_card_to_cards_taken(c2);
-        this->player2.add_card_to_cards_taken(c1);
-        this->player2.add_card_to_cards_taken(c2_down);
-        this->player2.add_card_to_cards_taken(c1_down);
-        this->player2.add_card_to_cards_taken(c2_up);
-        this->player2.add_card_to_cards_taken(c1_up);
+        // this->player2.add_card_to_cards_taken(c2);
+        // this->player2.add_card_to_cards_taken(c1);
+        // this->player2.add_card_to_cards_taken(c2_down);
+        // this->player2.add_card_to_cards_taken(c1_down);
+        // this->player2.add_card_to_cards_taken(c2_up);
+        // this->player2.add_card_to_cards_taken(c1_up);
+        for (size_t i = 0 ; i < this->table.size() ; i++){
+            this->player2.add_card_to_cards_taken(this->table.at(i));
+            cout << "the adding was from table !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
+        }
+        this->table.clear();
         this->print_single_turn += ". "+ this->player2.getName() + " wins.";
         this->print_all_turns += print_single_turn +"\n";
         
     }   
     else {
         // draw
-        this->addTotable(c1_down);
-        this->addTotable(c1_up);
-        this->addTotable(c2_down);
-        this->addTotable(c2_up);
+        // this->addTotable(c1_down);
+        // this->addTotable(c1_up);
+        // this->addTotable(c2_down);
+        // this->addTotable(c2_up);
         this->print_single_turn += ". Draw.";
         this->print_all_turns += print_single_turn +"\n";
         war(c1_up, c2_up);
@@ -115,8 +118,8 @@ void Game::war(Card c1 , Card c2){
  }
     else if (this->player1.stacksize()<2 && this->player1.stacksize()<2){
          if(this->player1 . stacksize() == 1 && this->player2.stacksize() == 1){
-            this->player1.add_card_to_cards_taken (this->player1.getStack()->front());
-            this->player2.add_card_to_cards_taken (this->player2.getStack()->front());
+            this->player1.add_card_to_cards_taken (this->player1.getStack().front());//changed to .
+            this->player2.add_card_to_cards_taken (this->player2.getStack().front());//changed to .
          }
          else if (this->player1 . stacksize() == 0 && this->player2.stacksize() == 0)   
          return;
@@ -140,7 +143,7 @@ void Game::playTurn(){
     Card c1 = this->player1.Takefirstcard();
     Card c2 = this->player2.Takefirstcard();
     this->print_single_turn =this->player1.getName()+" played "+c1.toString()+" "+this->player2.getName()+" played "+c2.toString();
-    //cout << print_single_turn << endl; 
+     
     int cmp_cards = c1.compare_card(c2);
 
     if(cmp_cards == 1){//c1 is greater
@@ -148,20 +151,28 @@ void Game::playTurn(){
         this->player1.add_card_to_cards_taken(c2);
         this->print_single_turn += ". "+ this->player1.getName() + " wins.";
         this->print_all_turns += print_single_turn +"\n";
-        //cout << print_single_turn << endl; 
+         
     }
-    else if(cmp_cards == 2){
+    else if(cmp_cards == 2){//c2 is greater
         this->player2.add_card_to_cards_taken(c2);
         this->player2.add_card_to_cards_taken(c1);
         this->print_single_turn += ". "+ this->player2.getName() + " wins";
         this->print_all_turns += this->print_single_turn +"\n";
-        //cout << print_single_turn << endl; 
+        
     }
     else { // cmp_cards == 0 (2 cards are equal) -> War!!
         // std::cout << "war!!" << endl;
         this->print_single_turn += ". Draw.";
         this->print_all_turns += print_single_turn +"\n";
+        if(this->player1.stacksize()==0 && this->player2.stacksize()==0){
+            this->player1.add_card_to_cards_taken(c1);
+            this->player2.add_card_to_cards_taken(c2);
+        }
+        else{
+        this->addTotable(c1);
+        this->addTotable(c2);
         war(c1,c2);
+        }
         //playTurn();
     }
     }
@@ -225,26 +236,13 @@ std::string Game::game_toString(){
     }
     info += "\n";
     info += "Player 1 hand: \n";
-    for(Card card : *player1.getStack()){
+    for(Card card : player1.getStack()){
         info += card.toString() + "\n";
     }
     info += "\n";
     info += "Player 2 hand: \n";
-    for(Card card : *player2.getStack()){
+    for(Card card : player2.getStack()){
         info += card.toString() + "\n";
     }
     return info;
 }
-
-
-
-//--------------------------------------------------------------------------------
-
-// void Game::reset(){
-//     this->player1.getStack()->erase(this->player1.getStack()->begin());
-// }
-
-
-
-
-

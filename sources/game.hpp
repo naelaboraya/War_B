@@ -15,14 +15,15 @@ class Game {
 
 private:
 
-Player player1,player2;//the game's players
+Player& player1;//the game's players
+Player& player2;
 std::vector<Card> Deck;//all the 52 cards that will be divided to 2 players
 std::vector<Card> table;//holds the temporary cards in case of war
 std::string print_single_turn;
 std::string print_all_turns;
-int game_over;
+int game_over;//0 if no 1 if yes 
 std::string winner;
-//bool is_finished;
+
 
 
 
@@ -31,15 +32,13 @@ std::string winner;
 void deck();//inits the deck with all 52 cards
 void shuffle();//shuffles the deck cards
 void give_cards();//gives each player 26 card from the suffled deck
-bool is_finished();//true iff the game is over
+
 
 public:
 //constructor:
-Game(Player pl1, Player pl2);
+Game(Player& pl1, Player& pl2);
 
 
-//destructor:
-//~Game();
 
 Player getplayer1(){
     return this->player1;
@@ -80,11 +79,11 @@ void printStats();
 
 void init_game();
 
-std::string game_toString();
-
 void addTotable(Card crd);//adds to the table the face up/down cards in case of war
 void war(Card crd1 , Card crd2);
-//void reset();
+
+bool is_finished();//true iff the game is over
+std::string game_toString();
 
 };
 

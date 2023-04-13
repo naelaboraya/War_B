@@ -16,8 +16,8 @@ class Player{
     
     std::string name;
     int num_of_cards_taken;
-    std::vector<Card> *stack;//the cards stack that the player has 
-    std::vector<Card> *stack_of_cards_taken;
+    std::vector<Card> stack;//the cards stack that the player has 
+    std::vector<Card> stack_of_cards_taken;
 
     public:
 
@@ -27,7 +27,7 @@ class Player{
     Player(std::string player_name);
 
     //destructor:
-     //~Player();
+    //  ~Player();
      
     
 
@@ -40,11 +40,11 @@ class Player{
         return this->name;
     }
 
-    std::vector<Card>* getStack(){
+    std::vector<Card> getStack(){
         return this->stack;
     }   
 
-    std::vector<Card>* get_stack_of_cards_taken(){
+    std::vector<Card> get_stack_of_cards_taken(){
         return this->stack_of_cards_taken;
     }   
     
@@ -54,6 +54,7 @@ class Player{
     int cardesTaken();
     Card Takefirstcard();
     std::string playertoSting();
+    void reset();
     
     
 };
